@@ -19,10 +19,10 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 RUN yum install -y net-tools;
 RUN yum install -y wget;
-RUN yum install -y openssh-server
+RUN yum install -y openssh-server;
 COPY ./sshd_config /etc/ssh/
-RUN systemctl enable sshd.service
-RUN systemctl start sshd.service
+RUN service sshd start;
+RUN service sshd on;
 
 RUN mkdir -p $DEV_DATA_PATH;
 
@@ -30,4 +30,4 @@ WORKDIR $DEV_DATA_PATH;
 VOLUME [$DEV_DATA_PATH]
 VOLUME ["/sys/fs/cgroup"]
 
-CMD ["/usr/sbin/init","/bin/bash"]
+CMD ["/usr/sbin/init"]
