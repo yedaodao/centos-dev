@@ -6,7 +6,8 @@ ENV DEV_DATA_PATH /var/dev-data
 COPY ./resolv.conf /etc/
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
+RUN yum -y swap -- remove fakesystemd
+RUN yum -y install systemd systemd-libs
 RUN yum -y update; yum clean all; \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i ==
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
